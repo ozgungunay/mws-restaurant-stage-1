@@ -1,13 +1,32 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
+  cuisines;
+var map;
+var markers = [];
+
+
+if ('serviceWorker' in window.navigator) {
+   window.navigator.serviceWorker
+   .register('/sw.js', {scope: '/'})
+   .then(function(reg) {
+	   // registration worked
+	   console.log('Registration succeeded. Scope is ' + reg.scope);
+	
+	})
+	.catch(function(error) {
+		// registration failed
+		console.log('Registration failed with ' + error);
+	});
+}  else {
+	console.log('Your browser do not support Service Worker :/')
+}
+
+
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {
   fetchNeighborhoods();
   fetchCuisines();
 });
